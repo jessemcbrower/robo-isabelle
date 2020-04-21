@@ -26,6 +26,20 @@ async def myfc(ctx, arg):
     await ctx.send(f'{ctx.author} just added {arg} to the database.')
     print(f'{ctx.author} just added {arg} to the database.')
 
+@client.command()
+async def get_codes(ctx):
+
+    with open('users.json', 'r') as d:
+        users = json.load(d)
+
+    embed = discord.Embed(title="Friend Codes")
+
+    for user in users:
+
+        embed.add_field(name=users[f'{user}']['username'], value=users[f'{user}']['code'], inline=False)
+
+    await ctx.send(embed=embed)
+
 async def add_user(users, user):
 
     if not f'{user.id}' in users:
